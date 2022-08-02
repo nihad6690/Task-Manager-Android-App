@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="335dp"
-            android:layout_height="555dp"
+            android:layout_height="500dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="50dp"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/addTitle"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/textdrawing"
@@ -43,29 +43,81 @@
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <TextView
+            android:id="@+id/addDescription"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/textdrawing"
+            android:text="Description"
+            android:textSize="20sp"
+            android:textStyle="normal|bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/inputdrawing"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Add Title"
+            android:textStyle="normal|bold"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/addTitle" />
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/inputdrawing"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Add Description"
+            android:textStyle="normal|bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/addDescription" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Add Task"
+            android:text="ADD TASK"
             android:textSize="34sp"
             android:textStyle="normal|bold"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="150dp"
+            android:text="CANCEL"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
+        <Button
+            android:id="@+id/submitbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="40dp"
+            android:text="submit"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
