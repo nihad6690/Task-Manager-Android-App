@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasks_recyclerViewAdapter.MyViewHolder> {
+public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHolder> {
     Context context;
     ArrayList<information> tasks;
 
@@ -24,14 +25,14 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasks_recycl
 
     @NonNull
     @Override
-    public tasks_recyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public tasksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_row, parent, false);
-        return new tasks_recyclerViewAdapter.MyViewHolder(view);
+        return new tasksViewHolder(view).linkAdapter(this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull tasks_recyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull tasksViewHolder holder, int position) {
         holder.textViewTitle.setText(tasks.get(position).getTitle());
         holder.textViewDescription.setText(tasks.get(position).getDescription());
     }
@@ -41,15 +42,27 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasks_recycl
         return tasks.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewTitle;
-        TextView textViewDescription;
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+}
 
-            textViewTitle = itemView.findViewById(R.id.recTitle);
-            textViewDescription = itemView.findViewById(R.id.recDescription);
-        }
+class tasksViewHolder extends RecyclerView.ViewHolder{
+
+    TextView textViewTitle;
+    TextView textViewDescription;
+    private tasks_recyclerViewAdapter adapter;
+
+    public tasksViewHolder(@NonNull View itemView) {
+        super(itemView);
+        textViewTitle = itemView.findViewById(R.id.recTitle);
+        textViewDescription = itemView.findViewById(R.id.recDescription);
+        itemView.findViewById(R.id.delBtn).setOnClickListener(view -> {
+            adapter.tasks.remove(getAdapterPosition());
+            adapter.notifyItemRemoved(getAdapterPosition());
+        });
+    }
+
+    public tasksViewHolder linkAdapter(tasks_recyclerViewAdapter adapter){
+        this.adapter = adapter;
+        return this;
     }
 }
