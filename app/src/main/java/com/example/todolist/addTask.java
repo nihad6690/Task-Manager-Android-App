@@ -13,6 +13,7 @@ public class addTask extends AppCompatActivity {
     private EditText editTitle;
     private EditText editDescription;
     private Button submitBtn;
+    private Button cancelBtn;
     public static final String EXTRA_TITLE = "com.example.todolist.EXTRA_TITLE";
     public static final String EXTRA_Description = "com.example.todolist.EXTRA_Description";
 
@@ -37,5 +38,15 @@ public class addTask extends AppCompatActivity {
                 finish();
             }
         });
+        cancelBtn = (Button) findViewById(R.id.cancelBtn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent output = new Intent();
+                setResult(RESULT_CANCELED, output);
+                finish();
+            }
+        });
+
     }
 }

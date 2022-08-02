@@ -50,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == TEXT_REQUEST){
                 String title = data.getStringExtra(addTask.EXTRA_TITLE);
                 String description = data.getStringExtra(addTask.EXTRA_Description);
-                tasks.add(new information(title, description));
-                tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(this, tasks);
-                this.recyclerView.setAdapter(adapter);
-                this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                if (title != null && description != null){
+                    tasks.add(new information(title, description));
+                    tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(this, tasks);
+                    this.recyclerView.setAdapter(adapter);
+                    this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                }
+
         }
     }
 
