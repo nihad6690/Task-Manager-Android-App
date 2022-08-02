@@ -1,18 +1,26 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button addBtn;
     public static final int TEXT_REQUEST  = 1;
-    public TextView setTitle;
-    private TextView setDescription;
+
+
+    ArrayList<information> tasks = new ArrayList<>();
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
                 addTaskActivity();
             }
         });
-        setTitle = findViewById(R.id.newTitle);
-        setDescription = findViewById(R.id.description);
+        recyclerView = findViewById(R.id.mRecylerView);
+
+
     }
+
 
     public void addTaskActivity(){
         Intent intent = new Intent(this, addTask.class);
@@ -40,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == TEXT_REQUEST){
                 String title = data.getStringExtra(addTask.EXTRA_TITLE);
                 String description = data.getStringExtra(addTask.EXTRA_Description);
-                this.setTitle.setText(title);
-                this.setTitle.setVisibility(View.VISIBLE);
-                this.setDescription.setText(description);
-                this.setDescription.setVisibility(View.VISIBLE);
+                tasks.add(new information(title, description));
+                tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(this, tasks);
+                this.recyclerView.setAdapter(adapter);
+                this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
 
