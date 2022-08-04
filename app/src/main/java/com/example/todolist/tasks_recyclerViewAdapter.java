@@ -1,16 +1,24 @@
 package com.example.todolist;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+
 
 public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHolder> {
     Context context;
@@ -35,6 +43,7 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHol
     public void onBindViewHolder(@NonNull tasksViewHolder holder, int position) {
         holder.textViewTitle.setText(tasks.get(position).getTitle());
         holder.textViewDescription.setText(tasks.get(position).getDescription());
+
     }
 
     @Override
@@ -43,14 +52,20 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHol
     }
 
 
+
+
 }
 
 class tasksViewHolder extends RecyclerView.ViewHolder{
 
+
     TextView textViewTitle;
     TextView textViewDescription;
-    private tasks_recyclerViewAdapter adapter;
-
+    public tasks_recyclerViewAdapter adapter;
+    public static final int TEXT_REQUEST  = 1;
+    public Button editButton;
+    public static final String EXTRA_TITLE = "com.example.todolist.EXTRA_TITLE";
+    ConstraintLayout conLayout;
     public tasksViewHolder(@NonNull View itemView) {
         super(itemView);
         textViewTitle = itemView.findViewById(R.id.recTitle);
@@ -59,7 +74,22 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
             adapter.tasks.remove(getAdapterPosition());
             adapter.notifyItemRemoved(getAdapterPosition());
         });
+        itemView.findViewById(R.id.editBtn).setOnClickListener(view -> {
+            Intent output = new Intent(view.getContext(), editTask.class);
+            output.putExtra("title", adapter.tasks.get(getAdapterPosition()).getTitle());
+            output.putExtra("description", adapter.tasks.get(getAdapterPosition()).getDescription());
+            output.putExtra("pos", getAdapterPosition());
+            Applicationclass applicationclass = (Applicationclass)((Activity)view.getContext()).getApplication();
+            applicationclass.setAdapter(adapter);
+            ((Activity)view.getContext()).startActivityForResult(output, 2);
+
+        });
     }
+
+
+
+
+
 
     public tasksViewHolder linkAdapter(tasks_recyclerViewAdapter adapter){
         this.adapter = adapter;

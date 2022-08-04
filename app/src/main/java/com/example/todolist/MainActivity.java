@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == TEXT_REQUEST){
                 String title = data.getStringExtra(addTask.EXTRA_TITLE);
                 String description = data.getStringExtra(addTask.EXTRA_Description);
@@ -56,6 +58,19 @@ public class MainActivity extends AppCompatActivity {
                     this.recyclerView.setAdapter(adapter);
                     this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 }
+
+        }
+        if(resultCode == 2){
+            String title = data.getStringExtra(addTask.EXTRA_TITLE);
+            String description = data.getStringExtra(addTask.EXTRA_Description);
+            Integer pos = data.getIntExtra("pos",0);
+            Applicationclass applicationclass = (Applicationclass) this.getApplication();
+            tasks_recyclerViewAdapter adapter = applicationclass.getAdapter();
+            adapter.tasks.get(pos).setTitle(title);
+            adapter.tasks.get(pos).setDescription(description);
+            adapter.notifyItemChanged(pos);
+
+            Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
 
         }
     }
