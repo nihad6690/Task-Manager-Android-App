@@ -3,15 +3,28 @@ package com.example.todolist;
 
 
 public class Users {
-    String username, email, password;
+    String username;
+    String email;
+    String password;
+    String title;
+    String description;
 
+    public Users(String username, String email, String password, String title, String description) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.title = title;
+        this.description = description;
+    }
+    public Users(){}
+
+    //sign up constructer
     public Users(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
 
-    public Users(){}
+    }
     public String getUsername() {
         return username;
     }
@@ -35,4 +48,21 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

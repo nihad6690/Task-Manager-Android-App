@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void addTaskActivity(){
-        Intent intent = new Intent(this, addTask.class);
-        startActivityForResult(intent, TEXT_REQUEST);
+        Intent intent = new Intent(this, signUpActivity.class);
+        startActivity(intent);
 
     }
 

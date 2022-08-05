@@ -19,6 +19,8 @@ public class signUpActivity extends AppCompatActivity {
     private Button signUpBtn;
     private EditText email;
     private  EditText password;
+    private EditText username;
+
 
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -35,7 +37,8 @@ public class signUpActivity extends AppCompatActivity {
         //getting all buttons and editText
         signUpBtn = findViewById(R.id.signUpBtn);
         email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
+        password = findViewById(R.id.password_edit);
+        username = findViewById(R.id.username);
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +47,11 @@ public class signUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
+                                    Users user = new Users(username.getText().toString(), email.getText().toString(), password.getText().toString());
+                                    String id = task.getResult().getUser().getUid();
+                                    database.getReference("Users").child(id).setValue(user);
+
+
                                     Toast.makeText(signUpActivity.this, "User was created successfully", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
