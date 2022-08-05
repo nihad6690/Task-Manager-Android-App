@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/btnbackground.xml" value="0.3045" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/buttoncolor.xml" value="0.1" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2145" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/inputdrawing.xml" value="0.313" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/myshape.xml" value="0.198" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/roundedbtn.xml" value="0.2145" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/textdrawing.xml" value="0.313" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_add_task.xml" value="0.5098206660973527" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_edit_task.xml" value="0.5" />
-        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.67" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_sign_in.xml" value="0.8576271186440678" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_sign_up.xml" value="0.6020524515393386" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/reccyler_view_row_xml.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/recycler_view_row.xml" value="0.67" />
       </map>
@@ -20,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.67" />
+      </ProjectState>
+    </option>
   </component>
 </project>

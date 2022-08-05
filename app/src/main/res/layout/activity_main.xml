@@ -19,6 +19,8 @@
             android:layout_height="38dp"
             android:layout_marginStart="150dp"
             android:text="Add new task"
+            android:background="@color/purple_500"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"

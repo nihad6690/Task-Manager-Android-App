@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.tasks.get(pos).setTitle(title);
             adapter.tasks.get(pos).setDescription(description);
             adapter.notifyItemChanged(pos);
-
-            Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Updated the task",Toast.LENGTH_SHORT).show();
 
         }
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -73,6 +74,7 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
         itemView.findViewById(R.id.delBtn).setOnClickListener(view -> {
             adapter.tasks.remove(getAdapterPosition());
             adapter.notifyItemRemoved(getAdapterPosition());
+            Toast.makeText(((Activity)view.getContext()).getApplicationContext(),"Deleted the task",Toast.LENGTH_SHORT).show();
         });
         itemView.findViewById(R.id.editBtn).setOnClickListener(view -> {
             Intent output = new Intent(view.getContext(), editTask.class);
