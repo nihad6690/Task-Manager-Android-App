@@ -12,11 +12,13 @@
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/textdrawing.xml" value="0.313" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_add_task.xml" value="0.5098206660973527" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_edit_task.xml" value="0.5" />
-        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.67" />
-        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_main2.xml" value="0.25480974775545107" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_sign_in.xml" value="0.75" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/activity_sign_up.xml" value="0.44084278768233387" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/reccyler_view_row_xml.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/layout/recycler_view_row.xml" value="0.67" />
+        <entry key="..\:/Users/Dhruvesh/AndroidStudioProjects/ToDoList/app/src/main/res/menu/menu.xml" value="0.5" />
       </map>
     </option>
   </component>

@@ -9,13 +9,25 @@ public class Users {
     String title;
     String description;
 
-    public Users(String username, String email, String password, String title, String description) {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    String userId;
+
+    public Users(String username, String email, String password, String title, String description, String userId) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.title = title;
         this.description = description;
+        this.userId = userId;
     }
+
     public Users(){}
 
     //sign up constructer
