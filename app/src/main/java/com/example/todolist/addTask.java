@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ public class addTask extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        getWindow().setStatusBarColor(ContextCompat.getColor(addTask.this, R.color.white));
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         setContentView(R.layout.activity_add_task);
@@ -71,15 +74,7 @@ public class addTask extends AppCompatActivity {
                 finish();
             }
         });
-        cancelBtn = (Button) findViewById(R.id.cancelBtn);
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent output = new Intent();
-                setResult(RESULT_CANCELED, output);
-                finish();
-            }
-        });
+
 
     }
 }
