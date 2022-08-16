@@ -24,6 +24,8 @@ public class addTask extends AppCompatActivity {
 
     public static final String EXTRA_TITLE = "com.example.todolist.EXTRA_TITLE";
     public static final String EXTRA_Description = "com.example.todolist.EXTRA_Description";
+    public static final String EXTRA_KEY = "key";
+    public static final String EXTRA_USERID = "user id";
 
 
     public static String generateRandomKey() {
@@ -55,12 +57,16 @@ public class addTask extends AppCompatActivity {
 
                 String title = editTitle.getText().toString();
                 String description = editDescription.getText().toString();
+                String key = generateRandomKey();
                 Intent output = new Intent();
                 output.putExtra(EXTRA_TITLE, title);
                 output.putExtra(EXTRA_Description, description);
+                output.putExtra(EXTRA_KEY, key);
+                output.putExtra(EXTRA_USERID, id);
+
                 information newTask = new information(title.toString(), description.toString());
 
-                firebaseDatabase.getReference().child("tasks").child(id).child(generateRandomKey()).setValue(newTask);
+                firebaseDatabase.getReference().child("tasks").child(id).child(key).setValue(newTask);
                 setResult(RESULT_OK, output);
                 finish();
             }

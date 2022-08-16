@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        firebaseAuth = firebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         recyclerView = findViewById(R.id.mRecylerView);
         Applicationclass applicationclass = (Applicationclass)(MainActivity.this.getApplication());
@@ -61,14 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         firebaseDatabase.getReference().child("tasks").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot currentSnapshot: snapshot.getChildren()){
                     String currentTitle = currentSnapshot.child("title").getValue(String.class);
                     String currentDescription = currentSnapshot.child("description").getValue(String.class);
-                    tasks.add(new information(currentTitle, currentDescription));
+                    tasks.add(new information(currentTitle, currentDescription, currentSnapshot.getKey(), id));
                     tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(MainActivity.this, tasks);
                     MainActivity.this.recyclerView.setAdapter(adapter);
                     MainActivity.this.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -125,8 +124,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == TEXT_REQUEST){
                 String title = data.getStringExtra(addTask.EXTRA_TITLE);
                 String description = data.getStringExtra(addTask.EXTRA_Description);
+                String key = data.getStringExtra(addTask.EXTRA_KEY);
+                String userId = data.getStringExtra(addTask.EXTRA_USERID);
                 if (title != null && description != null){
-                    tasks.add(new information(title, description));
+                    tasks.add(new information(title, description,key, userId));
                     tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(this, tasks);
                     this.recyclerView.setAdapter(adapter);
                     this.recyclerView.setLayoutManager(new LinearLayoutManager(this));

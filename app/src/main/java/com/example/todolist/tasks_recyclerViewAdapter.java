@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 
@@ -62,6 +65,8 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
 
     TextView textViewTitle;
     TextView textViewDescription;
+
+
     public tasks_recyclerViewAdapter adapter;
     public static final int TEXT_REQUEST  = 1;
     public Button editButton;
@@ -72,6 +77,8 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
         textViewTitle = itemView.findViewById(R.id.recTitle);
         textViewDescription = itemView.findViewById(R.id.recDescription);
         itemView.findViewById(R.id.delBtn).setOnClickListener(view -> {
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            firebaseDatabase.getReference().child("tasks").child(adapter.tasks.get(getAdapterPosition()).getUserId()).child(adapter.tasks.get(getAdapterPosition()).getTaskId()).setValue(null);
             adapter.tasks.remove(getAdapterPosition());
             adapter.notifyItemRemoved(getAdapterPosition());
             Toast.makeText(((Activity)view.getContext()).getApplicationContext(),"Deleted the task",Toast.LENGTH_SHORT).show();

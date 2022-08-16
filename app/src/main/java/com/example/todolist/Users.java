@@ -8,6 +8,15 @@ public class Users {
     String password;
     String title;
     String description;
+    String taskId;
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public String getUserId() {
         return userId;
@@ -35,6 +44,7 @@ public class Users {
         this.username = username;
         this.email = email;
         this.password = password;
+
 
     }
 
