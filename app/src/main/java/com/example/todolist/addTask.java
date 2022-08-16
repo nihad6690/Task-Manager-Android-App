@@ -9,22 +9,46 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Random;
+
 public class addTask extends AppCompatActivity {
     private EditText editTitle;
     private EditText editDescription;
     private Button submitBtn;
     private Button cancelBtn;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+
     public static final String EXTRA_TITLE = "com.example.todolist.EXTRA_TITLE";
     public static final String EXTRA_Description = "com.example.todolist.EXTRA_Description";
 
 
+    public static String generateRandomKey() {
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+                +"lmnopqrstuvwxyz";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(15);
+        for (int i = 0; i < 30; i++){
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
+
+        return sb.toString();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
         setContentView(R.layout.activity_add_task);
         editTitle = findViewById(R.id.editTextTitle);
         editDescription = findViewById(R.id.editTextDescription);
         submitBtn = (Button) findViewById(R.id.submitbtn);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         submitBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
@@ -34,6 +58,9 @@ public class addTask extends AppCompatActivity {
                 Intent output = new Intent();
                 output.putExtra(EXTRA_TITLE, title);
                 output.putExtra(EXTRA_Description, description);
+                information newTask = new information(title.toString(), description.toString());
+
+                firebaseDatabase.getReference().child("tasks").child(id).child(generateRandomKey()).setValue(newTask);
                 setResult(RESULT_OK, output);
                 finish();
             }

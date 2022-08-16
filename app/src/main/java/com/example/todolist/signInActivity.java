@@ -149,7 +149,9 @@ public class signInActivity extends AppCompatActivity {
                             users.setUsername(user.getDisplayName());
                             users.setEmail(user.getEmail());
                             Intent intent = new Intent(signInActivity.this, MainActivity.class);
+                            intent.putExtra("id", user.getUid().toString());
                             firebaseDatabase.getReference().child("Users").child(user.getUid()).setValue(users);
+                            Toast.makeText(signInActivity.this, "Signed in with google", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
 
                         } else {

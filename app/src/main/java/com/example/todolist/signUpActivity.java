@@ -70,6 +70,7 @@ public class signUpActivity extends AppCompatActivity {
                                     String id = task.getResult().getUser().getUid();
                                     database.getReference("Users").child(id).setValue(user);
                                     Intent intent = new Intent(signUpActivity.this, MainActivity.class);
+                                    intent.putExtra("id", id);
                                     startActivity(intent);
                                     Toast.makeText(signUpActivity.this, "User was created successfully", Toast.LENGTH_SHORT).show();
                                 }

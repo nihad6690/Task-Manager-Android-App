@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +18,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -25,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button addBtn;
     public static final int TEXT_REQUEST  = 1;
     FirebaseAuth firebaseAuth;
-
+    FirebaseDatabase firebaseDatabase;
+    public String id;
 
 
     ArrayList<information> tasks = new ArrayList<>();
@@ -35,16 +43,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getActionBar();
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
         firebaseAuth = firebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        recyclerView = findViewById(R.id.mRecylerView);
+        Applicationclass applicationclass = (Applicationclass)(MainActivity.this.getApplication());
+        boolean databaseContent = applicationclass.isNotUsedDatabaseContent();
+
+
+
         addBtn = (Button) findViewById(R.id.addBtn);
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (View view){
-                addTaskActivity();
+                addTaskActivity(id);
             }
         });
-        recyclerView = findViewById(R.id.mRecylerView);
+
+
+        firebaseDatabase.getReference().child("tasks").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot currentSnapshot: snapshot.getChildren()){
+                    String currentTitle = currentSnapshot.child("title").getValue(String.class);
+                    String currentDescription = currentSnapshot.child("description").getValue(String.class);
+                    tasks.add(new information(currentTitle, currentDescription));
+                    tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(MainActivity.this, tasks);
+                    MainActivity.this.recyclerView.setAdapter(adapter);
+                    MainActivity.this.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
 
 
 
@@ -71,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void addTaskActivity(){
+    public void addTaskActivity(String id){
         Intent intent = new Intent(this, addTask.class);
+        intent.putExtra("id",id);
         startActivityForResult(intent, TEXT_REQUEST);
 
     }
