@@ -140,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
             Integer pos = data.getIntExtra("pos",0);
             Applicationclass applicationclass = (Applicationclass) this.getApplication();
             tasks_recyclerViewAdapter adapter = applicationclass.getAdapter();
+
+            //update to the database
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            information editTheTask = new information(title.toString(), description.toString());
+            firebaseDatabase.getReference().child("tasks").child(adapter.tasks.get(pos).getUserId()).child(adapter.tasks.get(pos).getTaskId()).setValue(null);
+            firebaseDatabase.getReference().child("tasks").child(adapter.tasks.get(pos).getUserId()).child(adapter.tasks.get(pos).getTaskId()).setValue(editTheTask);
+
             adapter.tasks.get(pos).setTitle(title);
             adapter.tasks.get(pos).setDescription(description);
             adapter.notifyItemChanged(pos);
