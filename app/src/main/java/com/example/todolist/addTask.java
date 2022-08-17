@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,8 +20,9 @@ import java.util.Random;
 public class addTask extends AppCompatActivity {
     private EditText editTitle;
     private EditText editDescription;
-    private Button submitBtn;
+    private FloatingActionButton submitBtn;
     private Button cancelBtn;
+    private ImageView backArrow;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
 
@@ -51,7 +54,8 @@ public class addTask extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         editTitle = findViewById(R.id.editTextTitle);
         editDescription = findViewById(R.id.editTextDescription);
-        submitBtn = (Button) findViewById(R.id.submitbtn);
+        submitBtn = (FloatingActionButton) findViewById(R.id.submitBtn);
+        backArrow = findViewById(R.id.backArrow);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         submitBtn.setOnClickListener(new View.OnClickListener(){
@@ -71,6 +75,14 @@ public class addTask extends AppCompatActivity {
 
                 firebaseDatabase.getReference().child("tasks").child(id).child(key).setValue(newTask);
                 setResult(RESULT_OK, output);
+                finish();
+            }
+        });
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent output = new Intent();
+                setResult(RESULT_CANCELED, output);
                 finish();
             }
         });
