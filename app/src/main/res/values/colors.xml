@@ -11,4 +11,7 @@
     <color name="field_drab">#6c541e</color>
     <color name="yellow">#ffff00</color>
     <color name="dark_yellow">#9b870c</color>
+    <color name="dark_blue">#052CA3</color>
+    <color name="ligther_blue">#586CA8</color>
+
 </resources>

@@ -21,15 +21,20 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
     private Button addBtn;
+    private TextView todaysDate;
     public static final int TEXT_REQUEST  = 1;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
@@ -50,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.mRecylerView);
         Applicationclass applicationclass = (Applicationclass)(MainActivity.this.getApplication());
         boolean databaseContent = applicationclass.isNotUsedDatabaseContent();
+        final FirebaseUser mFirebaseUser = firebaseAuth.getCurrentUser();
+        if (mFirebaseUser != null) {
+            id = mFirebaseUser.getUid();
+        }
+        todaysDate = findViewById(R.id.date);
+        Date currentDate = new Date();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("dd MMM yyyy");
+        todaysDate.setText(timeFormat.format(currentDate).toString());
+
+
 
 
 
@@ -61,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Log.d("myTag", "This is my message");
         firebaseDatabase.getReference().child("tasks").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
                 }
+                TextView numberOftasks = findViewById(R.id.numberOfTasks);
+                if (tasks.size() > 1){
+                    numberOftasks.setText(tasks.size() + " tasks");
+                }
+                else{
+                    numberOftasks.setText(tasks.size() + " task");
+                }
+
             }
 
             @Override
@@ -132,6 +156,14 @@ public class MainActivity extends AppCompatActivity {
                     this.recyclerView.setAdapter(adapter);
                     this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 }
+                TextView numberOftasks = findViewById(R.id.numberOfTasks);
+                if (tasks.size() > 1){
+                    numberOftasks.setText(tasks.size() + " tasks");
+                }
+                else{
+                    numberOftasks.setText(tasks.size() + " task");
+                }
+
 
         }
         if(resultCode == 2){
