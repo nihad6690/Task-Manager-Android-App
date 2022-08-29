@@ -157,6 +157,13 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
             ((Activity)view.getContext()).startActivityForResult(output, 2);
 
         });
+        itemView.findViewById(R.id.eye).setOnClickListener(view -> {
+            Intent output = new Intent(view.getContext(), viewTask.class);
+            output.putExtra("title", adapter.tasks.get(getAdapterPosition()).getTitle());
+            output.putExtra("description", adapter.tasks.get(getAdapterPosition()).getDescription());
+            output.putExtra("pos", getAdapterPosition());
+            view.getContext().startActivity(output);
+        });
     }
 
 

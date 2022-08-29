@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ToDoList"
         tools:targetApi="31">
         <activity
+            android:name=".viewTask"
+            android:exported="false" />
+        <activity
             android:name=".signUpActivity"
             android:exported="false" />
         <activity
