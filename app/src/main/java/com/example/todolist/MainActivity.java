@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,12 +38,17 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private Button addBtn;
     private TextView todaysDate;
+    boolean clicked = false;
+
+
+
     public static final int TEXT_REQUEST  = 1;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     public String id;
 
-
+    FloatingActionButton three_dots, delete_btn, edit_btn, eye_btn;
+    Animation openAnim, closeAnim, forwardAnim, backwardAnim;
     ArrayList<information> tasks = new ArrayList<>();
     RecyclerView recyclerView;
 
@@ -64,8 +72,15 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd MMM yyyy");
         todaysDate.setText(timeFormat.format(currentDate).toString());
 
+        three_dots = (FloatingActionButton) findViewById(R.id.threeDots);
+        eye_btn = (FloatingActionButton) findViewById(R.id.eye);
+        delete_btn = (FloatingActionButton) findViewById(R.id.delBtn);
+        edit_btn = (FloatingActionButton) findViewById(R.id.editBtn);
 
-
+        openAnim = AnimationUtils.loadAnimation(this,R.anim.rotate_open_anim);
+        closeAnim = AnimationUtils.loadAnimation(this,R.anim.rotate_close_anim);
+        forwardAnim = AnimationUtils.loadAnimation(this,R.anim.from_bottom_anim);
+        backwardAnim = AnimationUtils.loadAnimation(this,R.anim.to_top_anim);
 
 
         addBtn = (Button) findViewById(R.id.addBtn);
@@ -82,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot currentSnapshot: snapshot.getChildren()){
                     String currentTitle = currentSnapshot.child("title").getValue(String.class);
-                    String currentDescription = currentSnapshot.child("description").getValue(String.class);
-                    tasks.add(new information(currentTitle, currentDescription, currentSnapshot.getKey(), id));
+                    String realDescription = currentSnapshot.child("description").getValue(String.class);
+                    String currentDescription = textLimit(realDescription);
+                    tasks.add(new information(currentTitle, realDescription, currentDescription, currentSnapshot.getKey(), id));
                     tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(MainActivity.this, tasks);
                     MainActivity.this.recyclerView.setAdapter(adapter);
                     MainActivity.this.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -106,11 +122,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
 
-
-
-
-
+    private void animate(){
+        if(clicked){
+            edit_btn.startAnimation(forwardAnim);
+            eye_btn.startAnimation(forwardAnim);
+            delete_btn.startAnimation(forwardAnim);
+            three_dots.startAnimation(openAnim);
+            edit_btn.setClickable(false);
+            eye_btn.setClickable(false);
+            delete_btn.setClickable(false);
+            clicked = false;
+        }
+        else{
+            edit_btn.startAnimation(backwardAnim);
+            eye_btn.startAnimation(backwardAnim);
+            delete_btn.startAnimation(backwardAnim);
+            three_dots.startAnimation(closeAnim);
+            edit_btn.setClickable(true);
+            eye_btn.setClickable(true);
+            delete_btn.setClickable(true);
+            clicked = true;
+        }
     }
 
     @Override
@@ -151,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 String key = data.getStringExtra(addTask.EXTRA_KEY);
                 String userId = data.getStringExtra(addTask.EXTRA_USERID);
                 if (title != null && description != null){
-                    tasks.add(new information(title, description,key, userId));
+                    String currentDescription = textLimit(title);
+                    tasks.add(new information(title, description, currentDescription, key, userId));
                     tasks_recyclerViewAdapter adapter = new tasks_recyclerViewAdapter(this, tasks);
                     this.recyclerView.setAdapter(adapter);
                     this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -184,6 +219,14 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyItemChanged(pos);
             Toast.makeText(getApplicationContext(),"Updated the task",Toast.LENGTH_SHORT).show();
 
+        }
+    }
+    private String textLimit(String description){
+        if(description.length() > 39){
+            return description.substring(0,36) + "...";
+        }
+        else{
+            return description;
         }
     }
 

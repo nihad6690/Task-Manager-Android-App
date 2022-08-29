@@ -8,6 +8,10 @@ public class information {
 
     public String title;
     public String description;
+
+
+
+    public String shortenedDescription;
     public String taskId;
     public String userId;
 
@@ -23,11 +27,12 @@ public class information {
         this.description = description;
         this.taskId = taskId;
     }
-    public information(String title, String description, String taskId, String userId) {
+    public information(String title, String description, String shortenedDescription, String taskId, String userId) {
         this.title = title;
         this.description = description;
         this.taskId = taskId;
         this.userId = userId;
+        this.shortenedDescription = shortenedDescription;
     }
 
     public String getTitle() {
@@ -62,5 +67,12 @@ public class information {
 
     public void setTaskId(String taskId) {
         this.taskId = taskId;
+    }
+    public String getShortenedDescription() {
+        return shortenedDescription;
+    }
+
+    public void setShortenedDescription(String shortenedDescription) {
+        this.shortenedDescription = shortenedDescription;
     }
 }

@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -46,7 +49,7 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHol
     @Override
     public void onBindViewHolder(@NonNull tasksViewHolder holder, int position) {
         holder.textViewTitle.setText(tasks.get(position).getTitle());
-        holder.textViewDescription.setText(tasks.get(position).getDescription());
+        holder.textViewDescription.setText(tasks.get(position).getShortenedDescription());
 
     }
 
@@ -54,7 +57,6 @@ public class tasks_recyclerViewAdapter extends RecyclerView.Adapter<tasksViewHol
     public int getItemCount() {
         return tasks.size();
     }
-
 
 
 
@@ -72,10 +74,72 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
     public Button editButton;
     public static final String EXTRA_TITLE = "com.example.todolist.EXTRA_TITLE";
     ConstraintLayout conLayout;
+
     public tasksViewHolder(@NonNull View itemView) {
         super(itemView);
         textViewTitle = itemView.findViewById(R.id.recTitle);
         textViewDescription = itemView.findViewById(R.id.recDescription);
+        itemView.findViewById(R.id.threeDots).setOnClickListener(view ->{
+            FloatingActionButton delete_btn, edit_btn, eye_btn;
+            delete_btn = itemView.findViewById(R.id.delBtn);
+            edit_btn = itemView.findViewById(R.id.editBtn);
+            eye_btn = itemView.findViewById(R.id.eye);
+            Animation rotateOpenAnim, rotateCloseAnim, fromBottomAnim, toTopAnim;
+            rotateOpenAnim = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_open_anim);
+            rotateCloseAnim = AnimationUtils.loadAnimation(view.getContext(),R.anim.rotate_close_anim);
+            fromBottomAnim = AnimationUtils.loadAnimation(view.getContext(),R.anim.from_bottom_anim);
+            toTopAnim = AnimationUtils.loadAnimation(view.getContext(),R.anim.to_top_anim);
+            boolean clicked = false;
+
+            if(!clicked){
+                edit_btn.setVisibility(View.VISIBLE);
+                delete_btn.setVisibility(View.VISIBLE);
+                eye_btn.setVisibility(View.VISIBLE);
+                edit_btn.startAnimation(fromBottomAnim);
+                eye_btn.startAnimation(fromBottomAnim);
+                delete_btn.startAnimation(fromBottomAnim);
+                itemView.findViewById(R.id.threeDots).startAnimation(rotateOpenAnim);
+                itemView.findViewById(R.id.threeDots).setOnClickListener(V ->{
+                    edit_btn.setVisibility(V.INVISIBLE);
+                    delete_btn.setVisibility(V.INVISIBLE);
+                    eye_btn.setVisibility(V.INVISIBLE);
+                    edit_btn.startAnimation(toTopAnim);
+                    eye_btn.startAnimation(toTopAnim);
+                    delete_btn.startAnimation(toTopAnim);
+                    itemView.findViewById(R.id.threeDots).startAnimation(rotateCloseAnim);
+                });
+                edit_btn.setVisibility(View.VISIBLE);
+                delete_btn.setVisibility(View.VISIBLE);
+                eye_btn.setVisibility(View.VISIBLE);
+            }
+
+
+            /*
+            if(clicked){
+                edit_btn.startAnimation(fromBottomAnim);
+                eye_btn.startAnimation(fromBottomAnim);
+                delete_btn.startAnimation(fromBottomAnim);
+                itemView.findViewById(R.id.threeDots).startAnimation(rotateOpenAnim);
+                edit_btn.setClickable(false);
+                eye_btn.setClickable(false);
+                delete_btn.setClickable(false);
+                clicked = false;
+            }
+            else{
+                edit_btn.startAnimation(toTopAnim);
+                eye_btn.startAnimation(toTopAnim);
+                delete_btn.startAnimation(toTopAnim);
+                itemView.findViewById(R.id.threeDots).startAnimation(rotateCloseAnim);
+                edit_btn.setClickable(true);
+                eye_btn.setClickable(true);
+                delete_btn.setClickable(true);
+                clicked = true;
+            }
+            */
+
+
+
+        });
         itemView.findViewById(R.id.delBtn).setOnClickListener(view -> {
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             firebaseDatabase.getReference().child("tasks").child(adapter.tasks.get(getAdapterPosition()).getUserId()).child(adapter.tasks.get(getAdapterPosition()).getTaskId()).setValue(null);
@@ -105,3 +169,4 @@ class tasksViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 }
+
