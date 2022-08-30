@@ -7,7 +7,7 @@ This project is an andrioid application where users can sign in or sign up using
 - ```Firebase authentication```
 
 ## Usage
-```A video of of the application: https://youtu.be/yr7uC4OYa3s``` 
+```A video of of the application: https://youtu.be/yr7uC4OYa3s  ``` 
 ![WhatsApp Image 2022-08-30 at 12 37 15 (5)](https://user-images.githubusercontent.com/86733538/187494706-891ffa10-bce7-4b2c-9ff8-9e40d8276903.jpeg)
 ![WhatsApp Image 2022-08-30 at 12 39 29](https://user-images.githubusercontent.com/86733538/187492494-3a4acc79-d6c2-4762-8325-55e17e31a124.jpeg)
 ![WhatsApp Image 2022-08-30 at 12 37 15 (1)](https://user-images.githubusercontent.com/86733538/187492541-65ade02f-f70d-424e-9789-397b2640ba93.jpeg)
