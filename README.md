@@ -1,5 +1,3 @@
-#Task Manager Android Application
-
 ## About The Project
 This project is an andrioid application where users can sign in or sign up using there credentials or with there google account with firebase authentication. The users can add new tasks and can view, update, and delete their tasks. All of the tasks will be saved in the firebase database so the user can save their tasks and come back to view their tasks at anytime.
 
